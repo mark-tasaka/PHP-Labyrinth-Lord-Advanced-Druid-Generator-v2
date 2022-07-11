@@ -103,11 +103,13 @@
         
         
 
-
+/*
         if(isset($_POST["theAlignment"]))
         {
             $alignment = $_POST["theAlignment"];
-        }
+        }*/
+
+        $alignment = "Neutral";
 
         
         
@@ -117,12 +119,13 @@
     
         }
         
-        
+        /*
         if(isset($_POST["theSpecies"]))
         {
             $species = $_POST["theSpecies"];
     
-        }
+        }*/
+        $species = "Human";
     
         if(isset($_POST["theLevel"]))
         {
@@ -215,6 +218,7 @@
                 $wisdomString = $_POST["theWisdom"];
                 $wisdom = intval($wisdomString);
                 $wisdom = demiHumanWisdomRange($wisdom, $species);
+                $wisdom = druidMinWisdom($wisdom);
             }  
 
             if(isset($_POST["theCharisma"]))
@@ -222,6 +226,7 @@
                 $charismaString = $_POST["theCharisma"];
                 $charisma = intval($charismaString);
                 $charisma = demiHumanCharismaRange($charisma, $species);
+                $charisma = druidMinCharisma($charisma);
             }  
 
             $generationMessage = "Custom Ability Scores;";
@@ -255,8 +260,10 @@
             $intelligence = demiHumanIntelligenceRange($intelligence, $species);
             $wisdom = $abilityScoreArray[4];
             $wisdom = demiHumanWisdomRange($wisdom, $species);
+            $wisdom = druidMinWisdom($wisdom);
             $charisma = $abilityScoreArray[5];
             $charisma = demiHumanCharismaRange($charisma, $species);
+            $charisma = druidMinCharisma($charisma);
             
             
             $generationMessage = generationMesssage ($abilityScoreGen);
@@ -490,9 +497,10 @@
         $saveSpells -= $wisdomMod;
         $saveSpells -= $saveSpellsMod;
 
-        $primeReq = primeReq($wisdom);
+        $primeReq = primeReq($wisdom, $charisma);
         $resSurvival = survivalResurrection($constitution);
         $shockSurvival = survivalShock($constitution);
+        $druidSpecial = druidSpecial($level);
         $wisdomBonusSpells = wisdomBonusCleric($wisdom);
         $demiHumanTraits = demiHumanTraits($species);
 
@@ -1146,6 +1154,7 @@
             <?php
                 echo $primeReq;
                 echo "Survive Resurrection " . $resSurvival . "%; Survive Transformative Shock " . $shockSurvival . "%<br/>" . $wisdomBonusSpells . "<br/>"; 
+                echo $druidSpecial;
                 echo $demiHumanTraits;
             ?>
         </span>

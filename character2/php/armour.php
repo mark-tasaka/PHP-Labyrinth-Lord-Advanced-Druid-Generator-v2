@@ -25,7 +25,7 @@ function getArmour($input)
 function getShield($input)
 {
     $a01 = array("", 0, 0);
-    $a02 = array("Shield", -1, 10);
+    $a02 = array("Wood Shield", -1, 10);
 
 
     $array1= array($a01, $a02);

@@ -6,92 +6,42 @@ function getHitPoints($level, $conMod)
 {
     $hitPoints = 0;
 
-    if($level < 10)
+    for($i = 0; $i < $level; ++$i)
     {
-        for($i = 0; $i < $level; ++$i)
+        $levelHP = rand(3, 6);
+        $levelHP += $conMod;
+
+        if($levelHP < 3)
         {
-            $levelHP = rand(3, 6);
-            $levelHP += $conMod;
-    
-            if($levelHP < 3)
-            {
-                $levelHP = 3;
-            }
-    
-            $hitPoints += $levelHP;
-    
-        }
-    }
-    else
-    {
-        for($i = 0; $i < 10; ++$i)
-        {
-            $levelHP = rand(3, 6);
-            $levelHP += $conMod;
-    
-            if($levelHP < 3)
-            {
-                $levelHP = 3;
-            }
-    
-            $hitPoints += $levelHP;
-    
+            $levelHP = 3;
         }
 
-        $levelTenPlusHP = ($level - 9);
-
-        $hitPoints += $levelTenPlusHP;
+        $hitPoints += $levelHP;
 
     }
-
 
     return $hitPoints;
 
 }
 
-//cleric d8
+//druid d8
 function getAdvancedHitPoints($level, $conMod)
 {
     $hitPoints = 0;
 
-    if($level < 10)
+    for($i = 0; $i < $level; ++$i)
     {
-        for($i = 0; $i < $level; ++$i)
+        $levelHP = rand(4, 8);
+        $levelHP += $conMod;
+
+        if($levelHP < 4)
         {
-            $levelHP = rand(3, 8);
-            $levelHP += $conMod;
-    
-            if($levelHP < 3)
-            {
-                $levelHP = 3;
-            }
-    
-            $hitPoints += $levelHP;
-    
-        }
-    }
-    else
-    {
-        for($i = 0; $i < 10; ++$i)
-        {
-            $levelHP = rand(3, 8);
-            $levelHP += $conMod;
-    
-            if($levelHP < 3)
-            {
-                $levelHP = 3;
-            }
-    
-            $hitPoints += $levelHP;
-    
+            $levelHP = 4;
         }
 
-        $levelTenPlusHP = ($level - 9);
-
-        $hitPoints += $levelTenPlusHP;
+        $hitPoints += $levelHP;
 
     }
-
 
     return $hitPoints;
 
@@ -226,29 +176,29 @@ function saveSpells($level)
 
 }
 
-function primeReq($abilityScore)
+//druid
+function primeReq($wisdom, $charisma)
 {
-    
-    if($abilityScore >= 3 && $abilityScore <=5)
-        {
-            return "-10% Experience Point Adjustment (Prime Requisite)<br/>";
-        }
-    else if($abilityScore >= 6 && $abilityScore <=8)
-        {
-            return "-5% Experience Point Adjustment (Prime Requisite)<br/>";
-        }
-    else if($abilityScore >= 13 && $abilityScore <=15)
-        {
-            return "+5% Experience Point Adjustment (Prime Requisite)<br/>";
-        }
-    else if($abilityScore >= 16 && $abilityScore <=18)
-        {
-            return "+10% Experience Point Adjustment (Prime Requisite)<br/>";
-        }
+    if($wisdom == 12)
+    {
+        return "";
+    }
+    else if( ($wisdom >= 13 && $wisdom <=15) && ($charisma >= 13) )
+    {
+        return "+5% Experience Point Adjustment (Prime Requisite)<br/>";
+    }
+    else if( ($wisdom >= 16) && ($charisma >= 13 && $charisma <=15) )
+    {
+        return "+5% Experience Point Adjustment (Prime Requisite)<br/>";
+    }
+    else if( ($wisdom >= 16 && $wisdom <=18) && ($charisma >= 16 && $charisma <=18) )
+    {
+        return "+10% Experience Point Adjustment (Prime Requisite)<br/>";
+    }
     else
-        {
-            return "";
-        }
+    {
+        return "";
+    }
     
 }
 
@@ -627,6 +577,51 @@ function startingAge($species)
 
     return $age;
 
+}
+
+function druidMinWisdom($wisdom)
+{
+    if($wisdom <= 11)
+    {
+        $wisdom = 12;
+    }
+
+    return $wisdom;
+}
+
+function druidMinCharisma($charisma)
+{
+    if($charisma <= 14)
+    {
+        $charisma = 15;
+    }
+
+    return $charisma;
+}
+
+
+function druidSpecial($level)
+{
+    $message = "";
+    
+    if($level < 3)
+    {
+        $message = "+2 bonus to saving throws against all fire and electrical based attacks.<br/>";
+    }
+    else if($level == 3)
+    {
+        $message = "+2 bonus to saving throws against all fire and electrical based attacks.<br/> 1 additional language from the following list: centaur, dragon (green), dryad, dwarven, elven, gnome, lizardfolk, manticore, nixie, pixie, sprite or treant.<br/>Ability to identify plants and animals; ability to discern whether water and food is pure, safe or poisoned.<br/>";
+    }
+    else if($level >= 4 && $level < 7)
+    {
+        $message = "+2 bonus to saving throws against all fire and electrical based attacks.<br/>" . ($level - 2) . " additional languages from the following list: centaur, dragon (green), dryad, dwarven, elven, gnome, lizardfolk, manticore, nixie, pixie, sprite or treant.<br/>Ability to identify plants and animals; ability to discern whether water and food is pure, safe or poisoned.<br/>";
+    }
+    else if($level >= 7)
+    {
+        $message = "+2 bonus to saving throws against all fire and electrical based attacks.<br/>" . ($level - 2) . " additional languages from the following list: centaur, dragon (green), dryad, dwarven, elven, gnome, lizardfolk, manticore, nixie, pixie, sprite or treant.<br/>Ability to identify plants and animals; ability to discern whether water and food is pure, safe or poisoned.<br/>Can assume animal shapes up to 3 times per day.<br/>";
+    }
+    
+    return $message;
 }
 
 
