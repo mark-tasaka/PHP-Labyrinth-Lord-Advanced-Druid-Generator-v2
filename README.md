@@ -4,6 +4,17 @@ The Labyrinth Lord Advanced Companion Druid Character Generator Version 2 is the
 
 -------------
 
+A live version of the Labyrinth Lord Advanced Companion Druid Character Generator Version 2 is available at:
+
+https://www.oldschooladventures.org/ll/classes2/druid/
+
+-------------
+
+
+Update 1.01: 2022-07-11
+
+Updates to druid.php, druid.css, druid.png, armour.php, classDetails.php, gear.php, spells.php, weapons.php, and xp.php.  A link to the live version of the Labyrinth Lord Advanced Companion Druid Character Generator Version 2 added.
+
 
 Initial commit: 2022-07-09
 
